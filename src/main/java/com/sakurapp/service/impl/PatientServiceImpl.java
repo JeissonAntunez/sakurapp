@@ -23,7 +23,8 @@ public class PatientServiceImpl implements IPatientService {
 
     @Override
     public Patient update(Integer id, Patient patient) {
-        // VAlIDAR EL ID Java Reflexion
+        repo.findById(id).orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
+        patient.setIdPatient(id);
         return repo.save(patient);
     }
 
@@ -43,5 +44,15 @@ public class PatientServiceImpl implements IPatientService {
     @Override
     public void delete(Integer id) {
          repo.deleteById(id);
+    }
+    @Override
+    public List<Patient> findByAddress(String address) {
+        // En producción aquí validarías que address no sea null/vacío
+        return repo.findByAddressContainingIgnoreCase(address);
+    }
+
+    @Override
+    public List<Patient> searchByName(String name) {
+        return repo.searchByName(name);
     }
 }

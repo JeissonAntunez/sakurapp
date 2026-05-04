@@ -16,4 +16,8 @@ public interface IPatientService {
 
 
     void delete(Integer id);
+
+    // Nuevos métodos de búsqueda
+    List<Patient> findByAddress(String address);
+    List<Patient> searchByName(String name);
 }

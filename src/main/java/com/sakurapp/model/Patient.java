@@ -16,20 +16,24 @@ public class Patient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_patient")
     private Integer idPatient;
 
-    @Column(nullable = false, length = 70)
+    @Column(name = "first_name", nullable = false, length = 70)
     private String firstName; // lowerCamelCase   // BD snake cambio de palabra un _
 
-    @Column( nullable = false, length = 70)
+    @Column(name = "last_name", nullable = false, length = 70)
     private String lastName;
 
-    @Column(nullable = false, length = 8)
+    @Column(name = "dni", nullable = false, length = 8)
     private String dni;
 
-    @Column(length = 150)
+    @Column(name = "address", length = 150)
     private String address;
 
-    @Column(nullable = false, length = 9)
+    @Column(name = "phone", nullable = false, length = 9)
     private String phone;
+
+    @Column(name = "email", nullable = false, length = 55)
+    private String email;
 }

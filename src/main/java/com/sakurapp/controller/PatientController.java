@@ -4,10 +4,7 @@ import com.sakurapp.model.Patient;
 import com.sakurapp.service.IPatientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +24,23 @@ public class PatientController {
     @GetMapping("/{id}")
     public Patient findById(@PathVariable("id") Integer id){
         return service.findById(id);
+    }
+
+
+    @PostMapping
+    public Patient save(@RequestBody  Patient patient){
+        return service.save(patient);
+    }
+
+    // Filtrar por address: GET /patients/address?value=Lima
+    @GetMapping("/address")
+    public List<Patient> findByAddress(@RequestParam("value") String address) {
+        return service.findByAddress(address);
+    }
+
+    // Buscar por nombre: GET /patients/search?name=Luis
+    @GetMapping("/search")
+    public List<Patient> searchByName(@RequestParam("name") String name) {
+        return service.searchByName(name);
     }
 }
