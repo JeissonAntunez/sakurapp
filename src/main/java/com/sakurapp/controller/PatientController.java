@@ -43,4 +43,17 @@ public class PatientController {
     public List<Patient> searchByName(@RequestParam("name") String name) {
         return service.searchByName(name);
     }
+    // Para actualizar
+
+    @PutMapping("/{id}")
+    public Patient update(@PathVariable("id") Integer id, Patient patient){
+        patient.setIdPatient(id);
+        return service.update(id,patient);
+    }
+    // Put es para actualizar
+
+    @DeleteMapping("/delete/{id}")
+    public Patient deletedById(@PathVariable("id") Integer id){
+        return service.deletedById(id);
+    }
 }

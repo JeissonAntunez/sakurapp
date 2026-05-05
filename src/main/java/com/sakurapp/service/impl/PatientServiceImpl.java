@@ -4,8 +4,10 @@ import com.sakurapp.model.Patient;
 import com.sakurapp.repo.IPatientRepo;
 import com.sakurapp.service.IPatientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 @Service
@@ -42,9 +44,20 @@ public class PatientServiceImpl implements IPatientService {
     }
 
     @Override
-    public void delete(Integer id) {
-         repo.deleteById(id);
+    public  Patient deletedById(Integer id) {
+        // 1. Buscamos el paciente por ID
+        Patient patient = repo.findById(id)
+                .orElseThrow(() ->  new ResponseStatusException(HttpStatus.NOT_FOUND, "Paciente no encontrado"));
+
+        // 2. Lo eliminamos
+        repo.deleteById(id);
+
+        // 3. Retornamos el objeto que acabamos de borrar
+        return patient;
+
     }
+
+
     @Override
     public List<Patient> findByAddress(String address) {
         // En producción aquí validarías que address no sea null/vacío
