@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -41,4 +42,8 @@ public class Consult {
 
     @Column(nullable = false)
     private LocalDateTime consultDate;
+
+
+    @OneToMany(mappedBy = "consult", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<ConsutlDetail> details;
 }
