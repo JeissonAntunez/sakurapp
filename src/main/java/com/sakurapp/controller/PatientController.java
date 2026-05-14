@@ -3,6 +3,7 @@ package com.sakurapp.controller;
 import com.sakurapp.model.Patient;
 import com.sakurapp.service.IPatientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,20 +11,25 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/patients")
+@RequestMapping("${patient.controller.path}")
 @RequiredArgsConstructor
 public class PatientController {
 
     private final IPatientService service;
 
     @GetMapping
-    public List<Patient> findAll(){
-        return service.findAll();
+    public ResponseEntity<List<Patient>> findAll(){
+        List<Patient> list = service.findAll();
+        return ResponseEntity.ok(list);
     }
 
+
     @GetMapping("/{id}")
-    public Patient findById(@PathVariable("id") Integer id){
-        return service.findById(id);
+    public ResponseEntity<Patient> findById(@PathVariable("id") Integer id){
+
+        Patient obj = service.findById(id);
+
+
     }
 
 

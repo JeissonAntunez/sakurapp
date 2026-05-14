@@ -13,30 +13,28 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Table(name = "users")
-public class User {
+public class Menu {
 
     @Id
     @EqualsAndHashCode.Include
-    private Integer idUser;
-
-    @Column(nullable = false, length = 60, unique = true)
-    private String userName;
-
-    @Column(nullable = false,length = 60)  //123  / Bcrypt
-    private String password;
+    private Integer idMenu;
 
 
-    @Column(nullable = false)
-    private boolean  enabled;
+    @Column(nullable = false, length = 20)
+    private String icon;
+
+    @Column(nullable = false, length = 20)
+    private String name;
+
+    @Column(nullable = false, length = 50)
+    private String url;
 
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "id_user", referencedColumnName = "idUser"),
+    @JoinTable(name = "menu_role",
+        joinColumns = @JoinColumn(name = "id_menu", referencedColumnName = "idMenu"),
             inverseJoinColumns = @JoinColumn(name = "id_role", referencedColumnName = "idRole")
     )
-
 
     private List<Role> roles;
 }
